@@ -40,7 +40,6 @@ SELECT
 FROM facturacion_productos
 ORDER BY total_facturado DESC;
 
-
 -- =============================================
 -- HALLAZGOS DEL ANÁLISIS
 -- =============================================
