@@ -39,3 +39,18 @@ SELECT
     END AS comparacion_promedio
 FROM facturacion_productos
 ORDER BY total_facturado DESC;
+
+
+-- =============================================
+-- HALLAZGOS DEL ANÁLISIS
+-- =============================================
+
+-- 1. El producto 1 fue el que más facturó,
+-- generando un total de $3.600.
+
+-- 2. El cliente 1 fue el que más gastó,
+-- con un total de $2.640 en dos pedidos.
+
+-- 3. La facturación total de marzo de 2024
+-- fue de $6.444, correspondiente a 10 pedidos.
+
