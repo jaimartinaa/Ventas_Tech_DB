@@ -84,35 +84,33 @@ WHERE v.id_venta IS NULL;
 
 
 -- =====================================================
--- CONSULTA 4: CONSOLIDADO POR CANAL (UNION ALL)
+-- CONSULTA 4: CONSOLIDADO POR GRUPO (UNION ALL)
 -- Propósito: comparar la facturación de dos grupos
 -- de ventas utilizando UNION ALL.
 -- =====================================================
 
 SELECT
-    canal,
-    SUM(total) AS total_canal
+    origen,
+    SUM(total) AS total_facturado
 FROM (
     SELECT
-        fecha_venta,
         cantidad * precio_unitario AS total,
-        'Origen A' AS canal
+        'Grupo 1' AS origen
     FROM ventas
     WHERE id_venta BETWEEN 1 AND 5
 
     UNION ALL
 
     SELECT
-        fecha_venta,
         cantidad * precio_unitario AS total,
-        'Origen B' AS canal
+        'Grupo 2' AS origen
     FROM ventas
     WHERE id_venta BETWEEN 6 AND 10
 ) AS consolidado
-GROUP BY canal;
+GROUP BY origen;
 
 -- Hallazgo: se comparan los importes facturados por
--- dos grupos de ventas. Esta separación permite
--- identificar cuál de los dos orígenes concentra
--- una mayor facturación.
-
+-- dos grupos de ventas, separados según su identificador.
+-- Esta segmentación permite comparar la facturación
+-- de ambos grupos, aunque no representa canales
+-- comerciales reales.
