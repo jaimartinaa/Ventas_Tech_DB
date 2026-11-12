@@ -8,8 +8,9 @@
 
 -- =====================================================
 -- CONSULTA 1: VISTA BASE DEL PROYECTO (INNER JOIN)
--- Propósito: enriquecer las ventas con información
--- de clientes, productos y categorías.
+-- Propósito: combinar las ventas con la información
+-- de clientes, productos y categorías para obtener
+-- una vista enriquecida del negocio.
 -- =====================================================
 
 SELECT
@@ -30,16 +31,17 @@ INNER JOIN productos p
 INNER JOIN categorias cat
     ON p.id_categoria = cat.id_categoria;
 
--- Hallazgo: las ventas quedan enriquecidas con los
--- datos de clientes, ciudades, productos y categorías,
--- permitiendo analizar la facturación por ubicación
--- y tipo de producto.
+-- Hallazgo: la consulta permite analizar las ventas
+-- relacionando clientes, ciudades, productos y categorías.
+-- Esta información sirve como base para construir
+-- indicadores y filtros en Power BI.
 
 
 -- =====================================================
 -- CONSULTA 2: CLIENTES SIN VENTAS (LEFT JOIN)
--- Propósito: detectar clientes registrados que nunca
--- realizaron una compra, para que CRM pueda contactarlos.
+-- Propósito: identificar clientes registrados que
+-- nunca realizaron una compra, para que el área de
+-- CRM pueda realizar acciones de seguimiento.
 -- =====================================================
 
 SELECT
@@ -49,18 +51,19 @@ SELECT
 FROM clientes c
 LEFT JOIN ventas v
     ON c.id_cliente = v.id_cliente
-WHERE v.id_cliente IS NULL;
+WHERE v.id_venta IS NULL;
 
 -- Hallazgo: no se encontraron clientes sin compras.
--- Los 5 clientes registrados realizaron al menos una
--- venta, por lo que no hay clientes pendientes de
--- seguimiento por parte del área de CRM.
+-- Los 5 clientes registrados realizaron al menos
+-- una compra, por lo que no hay clientes pendientes
+-- de seguimiento por parte del área de CRM.
 
 
 -- =====================================================
 -- CONSULTA 3: PRODUCTOS SIN VENTAS (LEFT JOIN)
 -- Propósito: identificar productos del catálogo que
--- todavía no registraron movimientos.
+-- todavía no registraron ventas, para que el área de
+-- producto pueda revisar su movimiento comercial.
 -- =====================================================
 
 SELECT
@@ -72,15 +75,16 @@ LEFT JOIN ventas v
     ON p.id_producto = v.id_producto
 INNER JOIN categorias cat
     ON p.id_categoria = cat.id_categoria
-WHERE v.id_producto IS NULL;
+WHERE v.id_venta IS NULL;
 
 -- Hallazgo: no se encontraron productos sin ventas.
 -- Los 6 productos del catálogo registraron al menos
--- una venta, por lo que todos tienen movimiento comercial.
+-- una venta, por lo que todos presentan movimiento
+-- comercial.
 
 
 -- =====================================================
--- CONSULTA 4: CONSOLIDADO POR ORIGEN (UNION ALL)
+-- CONSULTA 4: CONSOLIDADO POR CANAL (UNION ALL)
 -- Propósito: comparar la facturación de dos grupos
 -- de ventas utilizando UNION ALL.
 -- =====================================================
@@ -107,9 +111,16 @@ FROM (
 ) AS consolidado
 GROUP BY canal;
 
--- Hallazgo: el Origen A registra una facturación de
--- $3.620, mientras que el Origen B registra $2.824.
--- El Origen A concentra una mayor facturación.
+-- Hallazgo: se comparan los importes facturados por
+-- dos grupos de ventas. Esta separación permite
+-- identificar cuál de los dos orígenes concentra
+-- una mayor facturación.
+
+
+-- =====================================================
+-- FIN DE LA PRE-ENTREGA 5
+-- =====================================================
+
 
 
 
