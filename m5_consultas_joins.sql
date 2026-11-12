@@ -116,11 +116,3 @@ GROUP BY canal;
 -- identificar cuál de los dos orígenes concentra
 -- una mayor facturación.
 
-
--- =====================================================
--- FIN DE LA PRE-ENTREGA 5
--- =====================================================
-
-
-
-
